@@ -1,12 +1,20 @@
 import React, { createContext, useContext, useReducer, useEffect } from "react";
 import reducer from "../reducer/courseReducer";
-import { ISLOADING, GETDATA, DELETECOURSE, ADDNEWCOURSE } from "../action";
+import {
+  ISLOADING,
+  GETDATA,
+  DELETECOURSE,
+  ADDNEWCOURSE,
+  QUERYDATA,
+} from "../action";
 import { fetchData, addData } from "../components/fetchData";
 
 const CourseContext = createContext();
 const initialState = {
   isLoading: false,
   courses: [],
+  //courses:default data
+  queryCourses: [],
 };
 export const CourseContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -26,12 +34,18 @@ export const CourseContextProvider = ({ children }) => {
       .then((res) => dispatch({ type: GETDATA, payload: res }))
       .catch((error) => console.log(error));
   };
+  const queryData = (courses) => {
+    dispatch({ type: ISLOADING });
+    dispatch({ type: QUERYDATA, payload: courses });
+  };
   useEffect(() => {
     dispatch({ type: ISLOADING });
     getData();
   }, []);
   return (
-    <CourseContext.Provider value={{ ...state, deleteCourse, addCourse }}>
+    <CourseContext.Provider
+      value={{ ...state, deleteCourse, addCourse, queryData }}
+    >
       {children}
     </CourseContext.Provider>
   );

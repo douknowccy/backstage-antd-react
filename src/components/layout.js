@@ -33,7 +33,9 @@ export const LayoutHome = ({ children }) => {
         </Sider>
         <Layout className="site-layout" style={{ Height: "100vh" }}>
           <Header className="site-layout-background" style={{ padding: 0 }} />
-          <Content style={{ margin: "12px 16px" }}>{children}</Content>
+          <Content style={{ margin: "12px 16px" }} className="content">
+            {children}
+          </Content>
           <Footer style={{ textAlign: "center" }}>@2021 crdeit by Elon</Footer>
         </Layout>
       </Layout>
@@ -44,9 +46,12 @@ export const LayoutHome = ({ children }) => {
 const LayoutWrapper = styled.main`
   .layout {
     height: 100vh;
+    width: 100vw;
   }
-  /* .site-layout {
-    width: 100vw-150px;
-    min-width: 700px;
-  } */
+  .content {
+    display: inline-block;
+    width: 100vw;
+    max-width: 1000px;
+    min-width: 500px;
+  }
 `;
