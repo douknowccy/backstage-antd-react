@@ -36,7 +36,7 @@ export const LayoutHome = ({ children }) => {
           <Content style={{ margin: "12px 16px" }} className="content">
             {children}
           </Content>
-          <Footer style={{ textAlign: "center" }}>@2021 crdeit by Elon</Footer>
+          <Footer style={{ textAlign: "center" }}>@2021 credit by Elon</Footer>
         </Layout>
       </Layout>
     </LayoutWrapper>

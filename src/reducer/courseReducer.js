@@ -33,7 +33,7 @@ const CourseReducer = (state, action) => {
         isLoading: false,
       };
     case QUERYDATA:
-      console.log("dispatch query");
+      // console.log("dispatch query");
       return { ...state, isLoading: false, queryCourses: action.payload };
     default:
       return state;
