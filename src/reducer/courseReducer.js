@@ -1,5 +1,5 @@
-import { ISLOADING, GETDATA, DELETECOURSE } from "../action";
-import { deleteData } from "../components/fetchData";
+import { ISLOADING, GETDATA, DELETECOURSE, ADDNEWCOURSE } from "../action";
+import { deleteData, addData } from "../components/fetchData";
 const CourseReducer = (state, action) => {
   switch (action.type) {
     case ISLOADING:
@@ -7,13 +7,19 @@ const CourseReducer = (state, action) => {
     case GETDATA:
       return { ...state, courses: action.payload, isLoading: false };
     case DELETECOURSE:
-      deleteData("courses", action.payload.id);
+      deleteData(action.payload.params, action.payload.id);
       return {
         ...state,
         isLoading: false,
         courses: state.courses.filter(
           (course) => course.id !== action.payload.id
         ),
+      };
+    case ADDNEWCOURSE:
+      state.courses.push(action.payload.data);
+      return {
+        ...state,
+        isLoading: false,
       };
     default:
       return state;

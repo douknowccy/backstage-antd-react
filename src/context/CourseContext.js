@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useReducer, useEffect } from "react";
 import reducer from "../reducer/courseReducer";
-import { ISLOADING, GETDATA, DELETECOURSE } from "../action";
-import { fetchData } from "../components/fetchData";
+import { ISLOADING, GETDATA, DELETECOURSE, ADDNEWCOURSE } from "../action";
+import { fetchData, addData } from "../components/fetchData";
+
 const CourseContext = createContext();
 const initialState = {
   isLoading: false,
@@ -13,14 +14,24 @@ export const CourseContextProvider = ({ children }) => {
     dispatch({ type: ISLOADING });
     dispatch({ type: DELETECOURSE, payload: { params, id } });
   };
-  useEffect(() => {
+  const addCourse = (params, data) => {
     dispatch({ type: ISLOADING });
+    // console.log(params, data);
+    addData("courses", data)
+      .then((res) => dispatch({ type: ADDNEWCOURSE, payload: res }))
+      .catch((error) => console.log(error));
+  };
+  const getData = () => {
     fetchData("courses")
       .then((res) => dispatch({ type: GETDATA, payload: res }))
       .catch((error) => console.log(error));
+  };
+  useEffect(() => {
+    dispatch({ type: ISLOADING });
+    getData();
   }, []);
   return (
-    <CourseContext.Provider value={{ ...state, deleteCourse }}>
+    <CourseContext.Provider value={{ ...state, deleteCourse, addCourse }}>
       {children}
     </CourseContext.Provider>
   );

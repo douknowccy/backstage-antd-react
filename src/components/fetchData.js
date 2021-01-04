@@ -14,8 +14,8 @@ const deleteData = async (params, id) => {
   try {
     const response = await axios.delete(`${url}/${params}/${id}`);
     //refetch data
-    fetchData(params);
-    // return response.data;
+    // fetchData(params);
+    return response.data;
   } catch (error) {
     console.log(error, "error");
   }
@@ -23,7 +23,7 @@ const deleteData = async (params, id) => {
 const addData = async (params, data) => {
   try {
     const response = await axios.post(`${url}/${params}`, data);
-    return response.data;
+    return response;
   } catch (error) {
     console.log(error, "error");
   }

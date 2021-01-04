@@ -1,6 +1,7 @@
 DONE:axios data
 DONE:delete data
 DONE:open Modal
-TODO:show courses details on modal
+DONE:show courses details on modal
+DONE:add new data
 TODO:Edit data
 TODO:other stuff.......

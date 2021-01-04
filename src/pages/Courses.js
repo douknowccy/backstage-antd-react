@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { Table, Input, Button, Modal } from "antd";
 
 import useCourseContext from "../context/CourseContext";
+import showDeleteModal from "../components/showDeleteModal";
+import AddNewCourse from "../components/AddNewCourse";
 
 const { Search } = Input;
 function Courses() {
@@ -9,25 +11,32 @@ function Courses() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [modalTitle, setModalTitle] = useState("");
   const [id, setId] = useState(null);
+  const [addressText, setAddressText] = useState("");
+  const addressContent = (id) => {
+    const content = courses.filter((item) => item.id === id);
+
+    setAddressText(content[0].address);
+  };
   const showModal = () => {
     setIsModalVisible(true);
   };
 
   const handleOk = () => {
-    if (modalTitle === "確認要刪除嗎") {
-      deleteCourse("courses", id);
-    }
     setIsModalVisible(false);
+    setAddressText("");
   };
 
   const handleCancel = () => {
     setIsModalVisible(false);
+    setAddressText("");
   };
+
   if (courses) {
     //give action columns value of id
     const newCourses = courses.map((item) => {
-      return { ...item, action: item.id };
+      return { ...item, action: item.id, address: item.id };
     });
+    // console.log(newCourses);
     const columns = [
       {
         title: "課程類別",
@@ -56,7 +65,7 @@ function Courses() {
         title: "課程地址",
         dataIndex: "address",
         key: "address",
-        render: () => {
+        render: (id) => {
           return (
             <>
               {/* open modal */}
@@ -65,6 +74,7 @@ function Courses() {
                 onClick={(e) => {
                   setModalTitle("查看課程");
                   showModal();
+                  addressContent(id);
                 }}
               >
                 查看課程
@@ -94,7 +104,7 @@ function Courses() {
               danger
               onClick={(e) => {
                 setModalTitle("確認要刪除嗎");
-                showModal();
+                showDeleteModal({ modalTitle, id, deleteCourse });
                 setId(id);
               }}
 
@@ -113,6 +123,7 @@ function Courses() {
           // onSearch={handleSearch}
           style={{ width: 200 }}
         />
+        <AddNewCourse />
         <Table
           style={{ marginTop: 12 }}
           columns={columns}
@@ -124,7 +135,9 @@ function Courses() {
           visible={isModalVisible}
           onOk={handleOk}
           onCancel={handleCancel}
-        ></Modal>
+        >
+          {addressText}
+        </Modal>
       </div>
     );
   }
