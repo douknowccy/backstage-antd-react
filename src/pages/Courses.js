@@ -135,6 +135,8 @@ function Courses() {
           visible={isModalVisible}
           onOk={handleOk}
           onCancel={handleCancel}
+          centered
+          width={"70vw"}
         >
           {addressText}
         </Modal>

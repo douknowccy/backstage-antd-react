@@ -1,4 +1,4 @@
-import { Modal } from "antd";
+import { Modal, message } from "antd";
 import { ExclamationCircleOutlined } from "@ant-design/icons";
 
 const { confirm } = Modal;
@@ -10,8 +10,10 @@ export default function showDeleteConfirm({ modalTitle, id, deleteCourse }) {
     okText: "確定",
     okType: "danger",
     cancelText: "取消",
+    centered: true,
     onOk() {
       deleteCourse("courses", id);
+      message.info("刪除");
     },
     // onCancel() {
     //   console.log("Cancel");

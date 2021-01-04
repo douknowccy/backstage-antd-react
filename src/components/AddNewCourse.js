@@ -13,6 +13,7 @@ import useCourseContext from "../context/CourseContext";
 import styled from "styled-components";
 const { Option } = Select;
 const { Text } = Typography;
+const { TextArea } = Input;
 function AddNewCourse() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const { addCourse } = useCourseContext();
@@ -39,6 +40,7 @@ function AddNewCourse() {
     ) {
       message.warning("請輸入數字");
     } else {
+      message.info("新增成功");
       setIsModalVisible(false);
       addCourse("courses", newCourse);
       //reset
@@ -74,7 +76,7 @@ function AddNewCourse() {
         okText="确认"
         cancelText="取消"
         width={"100vw"}
-        height={"30vh"}
+        centered
       >
         <NewCourseWrapper>
           <div className="item">
@@ -119,18 +121,18 @@ function AddNewCourse() {
               value={newCourse.amount}
             />
           </div>
-          <div className="item">
-            {" "}
-            <Text type="secondary">名稱</Text>
-            <Input
-              placeholder="課程地址"
-              onChange={(e) =>
-                setNewCourse({ ...newCourse, address: e.target.value })
-              }
-              value={newCourse.address}
-            />
-          </div>
         </NewCourseWrapper>
+        <div className="item">
+          <Text type="secondary">課程內容</Text>
+          <TextArea
+            rows={4}
+            placeholder="課程內容"
+            onChange={(e) =>
+              setNewCourse({ ...newCourse, address: e.target.value })
+            }
+            value={newCourse.address}
+          />
+        </div>
       </Modal>
     </>
   );
