@@ -51,12 +51,20 @@ function Courses() {
       title: "課程總價",
       dataIndex: "price",
       key: "price",
+      sorter: {
+        compare: (a, b) => a.price - b.price,
+        multiple: 2,
+      },
     },
 
     {
       title: "課程數量",
       dataIndex: "amount",
       key: "amount",
+      sorter: {
+        compare: (a, b) => a.amount - b.amount,
+        multiple: 2,
+      },
     },
 
     {
